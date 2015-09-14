@@ -212,13 +212,13 @@
                 $("#signIn").hide();
             });
 
-          $('#send-message').attr('disabled', 'true');
+          $('#send-message').attr('disabled', true);
           $('body').on('keyup', '#maan, #message', function(event) {
               console.log('here');
             if($('#maan').val() === "" || $('#message').val() === "") {
-              $('#send-message').attr('disabled', 'true');
+              $('#send-message').attr('disabled', true);
             } else {
-              $('#send-message').attr('disabled', 'false');
+              $('#send-message').attr('disabled', false);
             }
           });
 
