@@ -1,1 +1,455 @@
 
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Conface</title>   
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <!-- Base Css Files -->
+        <link href="src/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+        <link href="src/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="src/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="src/fontello/css/fontello.css" rel="stylesheet" />
+        <link href="src/animate-css/animate.min.css" rel="stylesheet" />
+        <link href="src/nifty-modal/css/component.css" rel="stylesheet" />
+        <link href="src/pace/pace.css" rel="stylesheet" />
+        <link href="src/jquery-icheck/skins/all.css" rel="stylesheet" />
+                <!-- Extra CSS Libraries Start -->
+                <link href="css/style.css" rel="stylesheet" type="text/css" />
+                <!-- Extra CSS Libraries End -->
+        <link href="css/style-responsive.css" rel="stylesheet" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="img/favicon.ico">
+    </head>
+    <body class="fixed-left login-page">
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function LoginToFacebook() {
+            FB.login(function (response) {
+                statusChangeCallback(response);
+            }, { scope: 'public_profile,email' });
+        }
+        // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                $('#facebookButton').text('Connected');
+                // send access token to the server
+                console.log(response.authResponse);
+                var form_data = {
+                    accessToken: response.authResponse.accessToken,
+                    facebookId: response.authResponse.userID
+                };
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "api/auth/FacebookLogin",
+                    data: form_data,
+                    success: function (response) {
+                        console.log(response.resultCode);
+
+                        //var json = response;
+                        if (response.resultCode > 0) {
+                            document.cookie = 'token=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                            document.cookie = 'fuid=' + response.user + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                            $("#loginMenu").show();
+                            $("#signIn").hide();
+                            // if getConversations -> get convs from server
+                        }
+                        else if (response.resultCode == -1) {
+                            alert('access token not valid');
+                        }
+                    },
+                    dataType: "json"//set to JSON
+                })
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                  'into this app.';
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                  'into Facebook.';
+            }
+        }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '782732791789048',
+                xfbml: true,
+                version: 'v2.4'
+            });
+            console.log('calling get status');
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
+
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    } 
+
+    var wantsToSend = 0;
+    function logout()
+    {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    }
+
+    function sendMessage() {
+        console.log('inside send message');
+        wantsToSend = 1;
+
+        var response = "";
+
+        var maan = $("#maan").val();
+        var message = $("#message").val();
+        var userid = getCookie('userId');
+        var username = getCookie('username');
+        var password = getCookie('password');
+        
+        if (username == null || username == '') {
+            console.log('open modal');
+            $('#myModalO').modal('show');
+            return;
+        }
+        else {
+            wantsToSend = 0;
+        }
+
+
+        var form_data = {
+            userName: username,
+            password: password,
+            userId: userid,
+            facebookUserName: maan,
+            messageText: message
+        };
+        $.ajax({
+            type: "POST",
+            url: base_url + "api/chat/SendMessageAnonimo",
+            data: form_data,
+            success: function (response) {
+                console.log(response);
+
+                //var json = response;
+                if (response.resultCode > 0) {
+                    // show message - your message was sent!
+                    $("#maan").text('');
+                    $("#message").text('');
+                    alert("Your message was sent!");
+                }
+            },
+            dataType: "json"//set to JSON
+        })
+    }
+      var resizefunc = [];
+</script>
+ 
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="src/jquery/jquery-1.11.1.min.js"></script>
+  <script src="src/bootstrap/js/bootstrap.min.js"></script>
+  <script src="src/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
+  <script src="src/fastclick/fastclick.js"></script>
+  <script src="src/jquery-sparkline/jquery-sparkline.js"></script>
+  <script src="src/nifty-modal/js/classie.js"></script>
+  <script src="src/nifty-modal/js/modalEffects.js"></script>
+  <script src="src/bootstrap-fileinput/bootstrap.file-input.js"></script>
+  <script src="src/bootstrap-select/bootstrap-select.min.js"></script>
+  <script src="src/pace/pace.min.js"></script>
+  <script src="src/jquery-icheck/icheck.min.js"></script>
+  <!-- Specific JS Libraries -->
+  <script src="src/prettify/prettify.js"></script>
+  <script src="js/init.js"></script>
+
+   <script>
+      var base_url = 'http://rhc.azurewebsites.net/';
+   
+
+        $(document).ready(function () {
+            //    $('.dropdown-toggle').dropdown()
+            $("#logOutBtn").click(function () {
+                $("#loginMenu").hide();
+                $("#signIn").show();
+            });
+            $("#logInBtn").click(function () {
+                $("#loginMenu").show();
+                $("#signIn").hide();
+            });
+
+          $('#send-message').attr('disabled', true);
+          console.log($('#send-message'));
+          $('body').on('keyup', '#maan, #message', function(event) {
+            if($('#maan').val() === "" || $('#message').val() === "") {
+              $('#send-message').attr('disabled', true);
+            } else {
+              $('#send-message').attr('disabled', false);
+            }
+          });
+
+        });
+      
+    
+
+    function login() {
+        var response = "";
+        var username = $("#username").val();
+        var password = $("#password").val();
+        console.log(username + password);
+        var form_data = {
+            userName: username,
+            password: password
+        };
+        $.ajax({
+            type: "POST",
+            //url: base_url + "api/auth/login",
+            url: "/auth/login",
+            data: form_data,
+            success: function (response) {
+                console.log(response.resultCode);
+
+                //var json = response;
+                if (response.resultCode > 0)
+                {
+                    document.cookie = 'username=' + response.userName + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                    document.cookie = 'password=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                    document.cookie = 'userId=' + response.resultCode + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                    $('#myModalO').modal('hide');
+                    // show in UI that we're logged in
+                    showLoggedIn(response.userName);
+                    if (wantsToSend == 1)
+                        sendMessage();
+                }
+                else if (response.resultCode == -2)
+                {
+                    // show message "user does not exist"
+                    alert('user name does not exist');
+                }
+                else if (response.resultCode == -3)
+                {
+                    // show message "wrong password"
+                    alert('wrong password');
+                }
+                //var output = "<ul>";
+                //for (var i in json) {
+                //    output += "<li>" + json.userName + ",  " + json.password + "</li>";
+                //}
+                //output += "</ul>";
+                //$('span').html(output);
+            },
+            dataType: "json"//set to JSON
+        })
+       
+    }
+
+    function register() {
+        var response = "";
+        var username = $("#userNameRegister").val();
+        var password = $("#passwordRegister").val();
+        var email = $("#emailRegister").val();
+        var form_data = {
+            userName: username,
+            password: password,
+            email: email
+        };
+        $.ajax({
+            type: "POST",
+            url: base_url + "api/auth/SignUp",
+            data: form_data,
+            success: function (response) {
+                console.log(response);
+                if (response.resultCode > 0)
+                {
+                    document.cookie = 'username=' + response.userName + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                    document.cookie = 'password=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                    document.cookie = 'userId=' + response.resultCode + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                    console.log('hiding');
+                    $('#myModalO').modal('hide');
+                    // show in UI that we're logged in
+                    showLoggedIn(response.userName);
+                    if (wantsToSend == 1)
+                        sendMessage();
+                }
+                else if (response.resultCode == -2)
+                {
+                    // show message "user already exists"
+                    alert('user already exists');
+                }
+                //var json = response;
+                //var output = "<ul>";
+                //for (var i in json) {
+                //    output += "<li>" + json.userName + ",  " + json.password + "</li>";
+                //}
+                //      output += "</ul>";
+                //    $('span').html(output);
+            },
+            dataType: "json"//set to JSON
+        })
+
+
+    }
+
+    function showLoggedIn()
+    {
+        $("#loginMenu").show();
+        $("#signIn").hide();
+    }
+  
+    </script>
+    
+     <!-- Top Bar Start -->
+  <div class="topbar">
+    <!-- Button mobile view to collapse sidebar menu -->
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-collapse2">
+          <ul class="nav navbar-nav navbar-left top-navbar">
+            <li class="dropdown topbar-profile">
+              <a href="conversations.html"><i class="fa fa-comments"></i> <strong>Conversations</strong></a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right top-navbar">
+            <li class="dropdown topbar-profile">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> User <strong>Mode</strong></a>
+              <ul class="dropdown-menu">
+                <li><a href="index.html"><i class="icon-logout-1"></i> Log out</a></li>
+              </ul>
+            </li>
+            <li class="dropdown topbar-profile">
+              <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+            </li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <!-- Top Bar End -->
+  <!-- Begin page -->
+  <div class="container">
+    <div class="full-content-center">
+      <p class="text-center"><img src="img/login-logo.png" alt="Conface"></p>
+      <div class="login-wrap animated flipInX">
+        <div class="login-block">
+          <form role="form" action="#">
+            <div class="form-group login-input">
+            <i class="fa fa-user overlay"></i>
+            <input type="text" class="form-control text-input" placeholder="Enter someone's Facebook nickname...">
+            </div>
+            <div class="form-group login-input">
+            <i class="fa fa-envelope overlay"></i>
+            <textarea type="text" class="form-control text-input" placeholder="Write your message here..."></textarea>
+            </div>
+            <button id="send-message" class="btn btn-success btn-block" data-toggle="modal" onclick="sendMessage()">SEND MESSAGE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+   
+<div class="modal md-newspaper" id="myModalO">
+    <div class="md-dialog modal-dialog md-contentR">
+        <h3>Login or register to send your message!</h3>
+        <div>
+            <ul id="demo1" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#demo1-home" data-toggle="tab">LOG IN</a>
+                </li>
+                <li class="">
+                    <a href="#demo1-profile" data-toggle="tab">REGISTER</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="demo1-home">
+                    <div class="login-wrap">
+                        <div class="login-block">
+                            <form role="form" action="#">
+                                <div class="form-group login-input">
+                                    <i class="fa fa-user overlay"></i>
+                                    <input type="text" class="form-control text-input" id="username" placeholder="Username..." />
+                                </div>
+                                <div class="form-group login-input">
+                                    <i class="fa fa-key overlay"></i>
+                                    <input type="password" class="form-control text-input" id="password" placeholder="Password..." />
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-success btn-block" onclick="login()" id="logInBtn">LOGIN</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- / .tab-pane -->
+                <div class="tab-pane fade" id="demo1-profile">
+                    <div class="login-wrap">
+                        <div class="login-block">
+                            @*<form role="form" action="index.html">*@
+                                <div class="form-group login-input">
+                                    <i class="fa fa-user overlay"></i>
+                                    <input type="text" class="form-control text-input" id= "userNameRegister" placeholder="Username...">
+                                </div>
+                                <div class="form-group login-input">
+                                    <i class="fa fa-envelope overlay"></i>
+                                    <input type="text" class="form-control text-input" id="emailRegister" placeholder="Email address...">
+                                </div>
+                                <div class="form-group login-input">
+                                    <i class="fa fa-key overlay"></i>
+                                    <input type="password" class="form-control text-input" id="passwordRegister" placeholder="Password...">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="form-control" id="checkTerms">I accept the <strong><a href='#'>Terms and Conditions</a></strong>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-block" onclick="register()">REGISTER</button>
+                            @*</form>*@
+                        </div>
+                    </div>
+                </div> <!-- / .tab-pane -->
+            </div> <!-- / .tab-content -->
+        </div>
+    </div><!-- End div .md-content -->
+</div><!-- End div .md-modal .md-newspaper -->
+<!-- the overlay modal element -->
+<div class="md-overlay"></div>
+<!-- End of eoverlay modal -->
+
+  </body>
+</html>
