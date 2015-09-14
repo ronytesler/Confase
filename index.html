@@ -199,7 +199,7 @@
 
    <script>
       //var base_url = 'http://rhc.azurewebsites.net/';
-      var base_url = 'http://b70d7f77.ngrok.io/';
+      var base_url = 'http://b70d7f77.ngrok.io/api/';
    
 function setLoginMenu()
 {
@@ -250,7 +250,7 @@ function setLoginMenu()
         };
         $.ajax({
             type: "POST",
-            url: base_url + "api/auth/login",
+            url: base_url + "auth/login",
             //url: "/auth/login",
             data: form_data,
             success: function (response) {
