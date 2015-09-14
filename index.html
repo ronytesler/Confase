@@ -207,16 +207,17 @@ function setLoginMenu()
         var username = getCookie('username');
         
         if (username == null || username == '') {
+            console.log('not logged in');
             $("#loginMenu").hide();
                 $("#signIn").show();
             return;
         }
+        console.log('logged in');
         $("#loginMenu").show();
                 $("#signIn").hide();
 }
         $(document).ready(function () {
             //    $('.dropdown-toggle').dropdown()
-            console.log('herer');
             setLoginMenu();
             $("#logOutBtn").click(function () {
                 $("#loginMenu").hide();
@@ -229,7 +230,6 @@ function setLoginMenu()
 
           $('#send-message').attr('disabled', true);
           $('body').on('keyup', '#maan, #message', function(event) {
-              console.log('here');
             if($('#maan').val() === "" || $('#message').val() === "") {
               $('#send-message').attr('disabled', true);
             } else {
