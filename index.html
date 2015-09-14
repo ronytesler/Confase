@@ -66,6 +66,8 @@
                         if (response.resultCode > 0) {
                             document.cookie = 'token=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
                             document.cookie = 'fuid=' + response.user + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                            $("#loginMenu").show();
+                            $("#signIn").hide();
                             // if getConversations -> get convs from server
                         }
                         else if (response.resultCode == -1) {
@@ -437,7 +439,8 @@
 
     function showLoggedIn()
     {
-
+        $("#loginMenu").show();
+        $("#signIn").hide();
     }
 
   
