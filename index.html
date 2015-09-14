@@ -67,8 +67,6 @@
                         if (response.resultCode > 0) {
                             document.cookie = 'token=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
                             document.cookie = 'fuid=' + response.user + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                            $("#loginMenu").show();
-                            $("#signIn").hide();
                             // if getConversations -> get convs from server
                         }
                         else if (response.resultCode == -1) {
@@ -208,13 +206,13 @@ function setLoginMenu()
         
         if (username == null || username == '') {
             console.log('not logged in');
-            $("#loginMenu").hide();
-                $("#signIn").show();
+            $("#loginMenu").show();
+                $("#userMenu").hide();
             return;
         }
         console.log('logged in');
-        $("#loginMenu").show();
-                $("#signIn").hide();
+        $("#loginMenu").hide();
+                $("#userMenu").show();
 }
         $(document).ready(function () {
             //    $('.dropdown-toggle').dropdown()
@@ -359,8 +357,11 @@ function setLoginMenu()
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right top-navbar">
+              <li class="dropdown topbar-profile">
+              <a href="#" id="loginMenu" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>Login</strong></a>
+              <ul class="dropdown-menu">
             <li class="dropdown topbar-profile">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>Login</strong></a>
+              <a href="#" id="userMenu" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>name</strong></a>
               <ul class="dropdown-menu">
                 <li><a href="index.html"><i class="icon-logout-1"></i> Log out</a></li>
               </ul>
