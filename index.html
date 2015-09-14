@@ -176,6 +176,7 @@
           dataType: "json" //set to JSON
         })
       }
+      var resizefunc = [];
     </script>
     <!-- Top Bar Start -->
     <div class="topbar">
@@ -221,7 +222,7 @@
                 <i class="fa fa-envelope overlay"></i>
                 <textarea type="text" class="form-control text-input" id="message" placeholder="Write your message here..."></textarea>
               </div>
-              <button class="btn btn-success btn-block" data-toggle="modal" onclick="sendMessage()">SEND MESSAGE</button>
+              <button id="send-message" class="btn btn-success btn-block" data-toggle="modal" onclick="sendMessage()">SEND MESSAGE</button>
             </form>
           </div>
         </div>
@@ -294,27 +295,6 @@
     <!-- the overlay modal element -->
     <div class="md-overlay"></div>
     <!-- End of eoverlay modal -->
-    <!--[SCRIPT02]-->
-    <script>
-      var resizefunc = [];
-
-      function sendMessageEmpty() {
-        var maan = document.getElementById('maan').value;
-        var nickNameEmpty = document.getElementById('nickNameEmpty');
-        var message = document.getElementById('message').value;
-        var messageEmpty = document.getElementById('messageEmpty');
-        if (maan == "") {
-          nickNameEmpty.innerHTML = "empty";
-        } else {
-          nickNameEmpty.innerHTML = "";
-        }
-        if (message == "") {
-          messageEmpty.innerHTML = "empty";
-        } else {
-          messageEmpty.innerHTML = "";
-        }
-      }
-    </script>
     
     <script src="src/jquery/jquery-1.11.1.min.js"></script>
     <script src="src/bootstrap/js/bootstrap.min.js"></script>
@@ -344,6 +324,18 @@
           $("#loginMenu").show();
           $("#signIn").hide();
         });
+
+
+        $('#send-message').attr('disabled', true);
+        $('body').on('keyup', '#maan, #message', function(event) {
+          if($('#maan').val() === "" || $('#message').val() === "") {
+            $('#send-message').attr('disabled', true);
+          } else {
+            $('#send-message').attr('disabled', false);
+          }
+        });
+
+
       });
 
 
@@ -439,22 +431,7 @@
 
       function showLoggedIn() {}
 
-      function sendMessageEmpty() {
-        var maan = document.getElementById('maan').value;
-        var nickNameEmpty = document.getElementById('nickNameEmpty');
-        var message = document.getElementById('message').value;
-        var messageEmpty = document.getElementById('messageEmpty');
-        if (maan == "") {
-          nickNameEmpty.innerHTML = "empty";
-        } else {
-          nickNameEmpty.innerHTML = "";
-        }
-        if (message == "") {
-          messageEmpty.innerHTML = "empty";
-        } else {
-          messageEmpty.innerHTML = "";
-        }
-      }
+
     </script>
   </body>
 </html>
