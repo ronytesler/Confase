@@ -225,74 +225,74 @@
       </div>
     </div>
   </div>
-    <!-- Modal newspaper -->
-    <div class="md-modal md-newspaper" id="myModalO">
-      <div class="md-content">
+   
+   <div class="modal md-newspaper" id="myModalO">
+    <div class="md-dialog modal-dialog md-contentR">
         <h3>Login or register to send your message!</h3>
         <div>
-          <ul id="demo1" class="nav nav-tabs">
-            <li class="active">
-              <a href="#demo1-home" data-toggle="tab">LOG IN</a>
-            </li>
-            <li class="">
-              <a href="#demo1-profile" data-toggle="tab">REGISTER</a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade active in" id="demo1-home">
-              <div class="login-wrap">
-                <div class="login-block">
-                  <form role="form" action="#">
-                    <div class="form-group login-input">
-                      <i class="fa fa-user overlay"></i>
-                      <input type="text" class="form-control text-input" id="username" placeholder="Username..." />
+            <ul id="demo1" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#demo1-home" data-toggle="tab">LOG IN</a>
+                </li>
+                <li class="">
+                    <a href="#demo1-profile" data-toggle="tab">REGISTER</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="demo1-home">
+                    <div class="login-wrap">
+                        <div class="login-block">
+                            <form role="form" action="#">
+                                <div class="form-group login-input">
+                                    <i class="fa fa-user overlay"></i>
+                                    <input type="text" class="form-control text-input" id="username" placeholder="Username..." />
+                                </div>
+                                <div class="form-group login-input">
+                                    <i class="fa fa-key overlay"></i>
+                                    <input type="password" class="form-control text-input" id="password" placeholder="Password..." />
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-success btn-block" onclick="login()" id="logInBtn">LOGIN</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="form-group login-input">
-                      <i class="fa fa-key overlay"></i>
-                      <input type="password" class="form-control text-input" id="password" placeholder="Password..." />
+                </div> <!-- / .tab-pane -->
+                <div class="tab-pane fade" id="demo1-profile">
+                    <div class="login-wrap">
+                        <div class="login-block">
+                            @*<form role="form" action="index.html">*@
+                                <div class="form-group login-input">
+                                    <i class="fa fa-user overlay"></i>
+                                    <input type="text" class="form-control text-input" id= "userNameRegister" placeholder="Username...">
+                                </div>
+                                <div class="form-group login-input">
+                                    <i class="fa fa-envelope overlay"></i>
+                                    <input type="text" class="form-control text-input" id="emailRegister" placeholder="Email address...">
+                                </div>
+                                <div class="form-group login-input">
+                                    <i class="fa fa-key overlay"></i>
+                                    <input type="password" class="form-control text-input" id="passwordRegister" placeholder="Password...">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="form-control" id="checkTerms">I accept the <strong><a href='#'>Terms and Conditions</a></strong>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-block" onclick="register()">REGISTER</button>
+                            @*</form>*@
+                        </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <button id="send-message" type="submit" class="btn btn-success btn-block" onclick="login()">LOGIN</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div> <!-- / .tab-pane -->
-            <div class="tab-pane fade" id="demo1-profile">
-              <div class="login-wrap">
-                <div class="login-block">
-                  <form role="form" action="index.html">
-                    <div class="form-group login-input">
-                      <i class="fa fa-user overlay"></i>
-                      <input type="text" class="form-control text-input" placeholder="Username...">
-                    </div>
-                    <div class="form-group login-input">
-                      <i class="fa fa-envelope overlay"></i>
-                      <input type="text" class="form-control text-input" placeholder="Email address...">
-                    </div>
-                    <div class="form-group login-input">
-                      <i class="fa fa-key overlay"></i>
-                      <input type="password" class="form-control text-input" placeholder="Password...">
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" class="form-control"> I accept the <strong><a href='#'>Terms and Conditions</a></strong>
-                      </label>
-                    </div>
-                    <button type="submit" class="btn btn-default btn-block">REGISTER</button>
-                  </form>
-                </div>
-              </div>
-            </div> <!-- / .tab-pane -->
-          </div> <!-- / .tab-content -->
+                </div> <!-- / .tab-pane -->
+            </div> <!-- / .tab-content -->
         </div>
-      </div><!-- End div .md-content -->
-    </div><!-- End div .md-modal .md-newspaper -->
-  <!-- the overlay modal element -->
-  <div class="md-overlay"></div>
-  <!-- End of eoverlay modal -->
+    </div><!-- End div .md-content -->
+</div><!-- End div .md-modal .md-newspaper -->
+<!-- the overlay modal element -->
+<div class="md-overlay"></div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="src/jquery/jquery-1.11.1.min.js"></script>
   <script src="src/bootstrap/js/bootstrap.min.js"></script>
