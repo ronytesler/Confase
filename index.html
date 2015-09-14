@@ -330,6 +330,7 @@
             });
 
           $('#send-message').attr('disabled', true);
+          console.log($('#send-message'));
           $('body').on('keyup', '#maan, #message', function(event) {
             if($('#maan').val() === "" || $('#message').val() === "") {
               $('#send-message').attr('disabled', true);
