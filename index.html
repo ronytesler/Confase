@@ -214,10 +214,10 @@
 
           $('#send-message').attr('disabled', 'true');
           $('body').on('keyup', '#maan, #message', function(event) {
+              console.log('here');
             if($('#maan').val() === "" || $('#message').val() === "") {
               $('#send-message').attr('disabled', 'true');
             } else {
-                console.log('here');
               $('#send-message').attr('disabled', 'false');
             }
           });
@@ -369,11 +369,11 @@
           <form role="form" action="#">
             <div class="form-group login-input">
             <i class="fa fa-user overlay"></i>
-            <input type="text" class="form-control text-input" placeholder="Enter someone's Facebook nickname...">
+            <input type="text" id="maan" class="form-control text-input" placeholder="Enter someone's Facebook nickname...">
             </div>
             <div class="form-group login-input">
             <i class="fa fa-envelope overlay"></i>
-            <textarea type="text" class="form-control text-input" placeholder="Write your message here..."></textarea>
+            <textarea type="text" id="message" class="form-control text-input" placeholder="Write your message here..."></textarea>
             </div>
             <button id="send-message" class="btn btn-success btn-block" data-toggle="modal" onclick="sendMessage()">SEND MESSAGE</button>
           </form>
