@@ -67,6 +67,8 @@
                         if (response.resultCode > 0) {
                             document.cookie = 'token=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
                             document.cookie = 'fuid=' + response.user + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                            $("#loginMenu").show();
+                            $("#signIn").hide();
                             // if getConversations -> get convs from server
                         }
                         else if (response.resultCode == -1) {
@@ -95,6 +97,7 @@
             });
             console.log('calling get status');
             FB.getLoginStatus(function (response) {
+                console.log("response")
                 statusChangeCallback(response);
             });
         };
@@ -243,7 +246,6 @@ function setLoginMenu()
         var response = "";
         var username = $("#username").val();
         var password = $("#password").val();
-        console.log(username + password);
         var form_data = {
             userName: username,
             password: password
@@ -286,8 +288,7 @@ function setLoginMenu()
                 //$('span').html(output);
             },
             dataType: "json"//set to JSON
-        })
-       
+        })  
     }
 
     function register() {
@@ -333,12 +334,10 @@ function setLoginMenu()
             },
             dataType: "json"//set to JSON
         })
-
-
     }
 
-    function showLoggedIn()
-    {
+    function showLoggedIn() {
+
         $("#loginMenu").show();
         $("#signIn").hide();
     }
@@ -357,11 +356,16 @@ function setLoginMenu()
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right top-navbar">
+
               <li id="loginMenu" class="dropdown topbar-profile">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>Login</strong></a>
               <ul class="dropdown-menu">
             <li id="userMenu" class="dropdown topbar-profile">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>name</strong></a>
+
+            // <li class="dropdown topbar-profile">
+            //   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> User <strong>Mode</strong></a>
+
               <ul class="dropdown-menu">
                 <li><a href="index.html"><i class="icon-logout-1"></i> Log out</a></li>
               </ul>
@@ -436,6 +440,9 @@ function setLoginMenu()
                 <div class="tab-pane fade" id="demo1-profile">
                     <div class="login-wrap">
                         <div class="login-block">
+
+                            <form role="form" action="">
+
                                 <div class="form-group login-input">
                                     <i class="fa fa-user overlay"></i>
                                     <input type="text" class="form-control text-input" id= "userNameRegister" placeholder="Username...">
@@ -454,7 +461,8 @@ function setLoginMenu()
                                     </label>
                                 </div>
                                 <button type="submit" class="btn btn-default btn-block" onclick="register()">REGISTER</button>
-                            
+                            </form>
+
                         </div>
                     </div>
                 </div> <!-- / .tab-pane -->
