@@ -1,40 +1,39 @@
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Conface</title>   
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="author" content="">
-        <!-- Base Css Files -->
-        <link href="src/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-        <link href="src/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="src/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="src/fontello/css/fontello.css" rel="stylesheet" />
-        <link href="src/animate-css/animate.min.css" rel="stylesheet" />
-        <link href="src/nifty-modal/css/component.css" rel="stylesheet" />
-        <link href="src/pace/pace.css" rel="stylesheet" />
-        <link href="src/jquery-icheck/skins/all.css" rel="stylesheet" />
-                <!-- Extra CSS Libraries Start -->
-                <link href="css/style.css" rel="stylesheet" type="text/css" />
-                <!-- Extra CSS Libraries End -->
-        <link href="css/style-responsive.css" rel="stylesheet" />
+<head>
+    <meta charset="UTF-8">
+    <title>Conface</title>   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <!-- Base Css Files -->
+    <link href="src/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+    <link href="src/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="src/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="src/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="src/animate-css/animate.min.css" rel="stylesheet" />
+    <link href="src/nifty-modal/css/component.css" rel="stylesheet" />
+    <link href="src/pace/pace.css" rel="stylesheet" />
+    <link href="src/jquery-icheck/skins/all.css" rel="stylesheet" />
+            <!-- Extra CSS Libraries Start -->
+            <link href="css/style.css" rel="stylesheet" type="text/css" />
+            <!-- Extra CSS Libraries End -->
+    <link href="css/style-responsive.css" rel="stylesheet" />
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-        <link rel="shortcut icon" href="img/favicon.ico">
-    </head>
-    <body class="fixed-left login-page">
-<script>
-  // This is called with the results from from FB.getLoginStatus().
-  function LoginToFacebook() {
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+</head>
+<body class="fixed-left login-page">
+    <script>
+        // This is called with the results from from FB.getLoginStatus().
+        function LoginToFacebook() {
             FB.login(function (response) {
                 statusChangeCallback(response);
             }, { scope: 'public_profile,email' });
@@ -111,112 +110,118 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        
-        for(var i=0; i<ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1);
-            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-        }
-        return "";
-    } 
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+            }
+            return "";
+        } 
 
-    var wantsToSend = 0;
-    function logout()
-    {
-        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    }
-
-    function sendMessage() {
-        console.log('inside send message');
-        wantsToSend = 1;
-
-        var response = "";
-
-        var maan = $("#maan").val();
-        var message = $("#message").val();
-        var userid = getCookie('userId');
-        var username = getCookie('username');
-        var password = getCookie('password');
-        
-        if (username == null || username == '') {
-            console.log('open modal');
-            $('#myModalO').modal('show');
-            return;
-        }
-        else {
-            wantsToSend = 0;
+        var wantsToSend = 0;
+        function logout() {
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         }
 
+        function sendMessage() {
+            console.log('inside send message');
+            wantsToSend = 1;
 
-        var form_data = {
-            userName: username,
-            password: password,
-            userId: userid,
-            facebookUserName: maan,
-            messageText: message
-        };
-        $.ajax({
-            type: "POST",
-            url: base_url + "chat/SendMessageAnonimo",
-            data: form_data,
-            success: function (response) {
-                console.log(response);
+            var response = "";
 
-                //var json = response;
-                if (response.resultCode > 0) {
-                    // show message - your message was sent!
-                    $("#maan").text('');
-                    $("#message").text('');
-                    alert("Your message was sent!");
-                }
-            },
-            dataType: "json"//set to JSON
-        })
-    }
-      var resizefunc = [];
-</script>
- 
+            var maan = $("#maan").val();
+            var message = $("#message").val();
+            var userid = getCookie('userId');
+            var username = getCookie('username');
+            var password = getCookie('password');
+            
+            if (username == null || username == '') {
+                console.log('open modal');
+                $('#myModalO').modal('show');
+                return;
+            }
+            else {
+                wantsToSend = 0;
+            }
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="src/jquery/jquery-1.11.1.min.js"></script>
-  <script src="src/bootstrap/js/bootstrap.min.js"></script>
-  <script src="src/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
-  <script src="src/fastclick/fastclick.js"></script>
-  <script src="src/jquery-sparkline/jquery-sparkline.js"></script>
-  <script src="src/nifty-modal/js/classie.js"></script>
-  <script src="src/nifty-modal/js/modalEffects.js"></script>
-  <script src="src/bootstrap-fileinput/bootstrap.file-input.js"></script>
-  <script src="src/bootstrap-select/bootstrap-select.min.js"></script>
-  <script src="src/pace/pace.min.js"></script>
-  <script src="src/jquery-icheck/icheck.min.js"></script>
-  <!-- Specific JS Libraries -->
-  <script src="src/prettify/prettify.js"></script>
-  <script src="js/init.js"></script>
 
-   <script>
+            var form_data = {
+                userName: username,
+                password: password,
+                userId: userid,
+                facebookUserName: maan,
+                messageText: message
+            };
+            $.ajax({
+                type: "POST",
+                url: base_url + "chat/SendMessageAnonimo",
+                data: form_data,
+                success: function (response) {
+                    console.log(response);
+
+                    //var json = response;
+                    if (response.resultCode > 0) {
+                        // show message - your message was sent!
+                        $("#maan").text('');
+                        $("#message").text('');
+                        alert("Your message was sent!");
+                    }
+                },
+                dataType: "json"//set to JSON
+            })
+        }
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="src/jquery/jquery-1.11.1.min.js"></script>
+        <script src="src/bootstrap/js/bootstrap.min.js"></script>
+        <script src="src/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="src/fastclick/fastclick.js"></script>
+        <script src="src/jquery-sparkline/jquery-sparkline.js"></script>
+        <script src="src/nifty-modal/js/classie.js"></script>
+        <script src="src/nifty-modal/js/modalEffects.js"></script>
+        <script src="src/bootstrap-fileinput/bootstrap.file-input.js"></script>
+        <script src="src/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="src/pace/pace.min.js"></script>
+        <script src="src/jquery-icheck/icheck.min.js"></script>
+    <!-- Specific JS Libraries -->
+        <script src="src/prettify/prettify.js"></script>
+        <script src="js/init.js"></script>
+
+    <script>
       //var base_url = 'http://rhc.azurewebsites.net/';
       var base_url = 'http://b70d7f77.ngrok.io/api/';
-   
-function setLoginMenu()
-{
-    console.log('here');
-        var username = getCookie('username');
-        
-        if (username == null || username == '') {
-            console.log('not logged in');
-            $("#loginMenu").show();
-                $("#userMenu").hide();
-            return;
+
+        function toggleLogin() {
+            $('facebookLogin').toggle();
+            $("#loginMenu").toggle();
+            $("#userMenu").toggle();
         }
-        console.log('logged in');
-        $("#loginMenu").hide();
+
+        function setLoginMenu() {
+            console.log('here');
+                var username = getCookie('username');
+                console.log(username)
+                if (username == null || username == '') {
+                    console.log('not logged in');
+                        $('facebookLogin').hide();
+                        $("#loginMenu").show();
+                        $("#userMenu").hide();
+                    return;
+                }
+                console.log('logged in');
+                $('facebookLogin').hide();
+                $("#loginMenu").hide();
                 $("#userMenu").show();
-}
+        }
+
         $(document).ready(function () {
             //    $('.dropdown-toggle').dropdown()
             setLoginMenu();
@@ -237,114 +242,110 @@ function setLoginMenu()
               $('#send-message').attr('disabled', false);
             }
           });
-
         });
-      
-    
 
-    function login() {
-        var response = "";
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var form_data = {
-            userName: username,
-            password: password
-        };
-        $.ajax({
-            type: "POST",
-            url: base_url + "auth/login",
-            //url: "/auth/login",
-            data: form_data,
-            success: function (response) {
-                console.log(response.resultCode);
+        function login() {
+            var response = "";
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var form_data = {
+                userName: username,
+                password: password
+            };
+            $.ajax({
+                type: "POST",
+                url: base_url + "auth/login",
+                //url: "/auth/login",
+                data: form_data,
+                success: function (response) {
+                    console.log(response.resultCode);
 
-                //var json = response;
-                if (response.resultCode > 0)
-                {
-                    document.cookie = 'username=' + response.userName + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                    document.cookie = 'password=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                    document.cookie = 'userId=' + response.resultCode + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                    $('#myModalO').modal('hide');
-                    // show in UI that we're logged in
-                    showLoggedIn(response.userName);
-                    if (wantsToSend == 1)
-                        sendMessage();
-                }
-                else if (response.resultCode == -2)
-                {
-                    // show message "user does not exist"
-                    alert('user name does not exist');
-                }
-                else if (response.resultCode == -3)
-                {
-                    // show message "wrong password"
-                    alert('wrong password');
-                }
-                //var output = "<ul>";
-                //for (var i in json) {
-                //    output += "<li>" + json.userName + ",  " + json.password + "</li>";
-                //}
-                //output += "</ul>";
-                //$('span').html(output);
-            },
-            dataType: "json"//set to JSON
-        })  
-    }
+                    //var json = response;
+                    if (response.resultCode > 0)
+                    {
+                        document.cookie = 'username=' + response.userName + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                        document.cookie = 'password=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                        document.cookie = 'userId=' + response.resultCode + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                        $('#myModalO').modal('hide');
+                        // show in UI that we're logged in
+                        showLoggedIn(response.userName);
+                        if (wantsToSend == 1)
+                            sendMessage();
+                    }
+                    else if (response.resultCode == -2)
+                    {
+                        // show message "user does not exist"
+                        alert('user name does not exist');
+                    }
+                    else if (response.resultCode == -3)
+                    {
+                        // show message "wrong password"
+                        alert('wrong password');
+                    }
+                    //var output = "<ul>";
+                    //for (var i in json) {
+                    //    output += "<li>" + json.userName + ",  " + json.password + "</li>";
+                    //}
+                    //output += "</ul>";
+                    //$('span').html(output);
+                },
+                dataType: "json"//set to JSON
+            })  
+        }
 
-    function register() {
-        var response = "";
-        var username = $("#userNameRegister").val();
-        var password = $("#passwordRegister").val();
-        var email = $("#emailRegister").val();
-        var form_data = {
-            userName: username,
-            password: password,
-            email: email
-        };
-        $.ajax({
-            type: "POST",
-            url: base_url + "auth/SignUp",
-            data: form_data,
-            success: function (response) {
-                console.log(response);
-                if (response.resultCode > 0)
-                {
-                    document.cookie = 'username=' + response.userName + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                    document.cookie = 'password=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                    document.cookie = 'userId=' + response.resultCode + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                    console.log('hiding');
-                    $('#myModalO').modal('hide');
-                    // show in UI that we're logged in
-                    showLoggedIn(response.userName);
-                    if (wantsToSend == 1)
-                        sendMessage();
-                }
-                else if (response.resultCode == -2)
-                {
-                    // show message "user already exists"
-                    alert('user already exists');
-                }
-                //var json = response;
-                //var output = "<ul>";
-                //for (var i in json) {
-                //    output += "<li>" + json.userName + ",  " + json.password + "</li>";
-                //}
-                //      output += "</ul>";
-                //    $('span').html(output);
-            },
-            dataType: "json"//set to JSON
-        })
-    }
+        function register() {
+            var response = "";
+            var username = $("#userNameRegister").val();
+            var password = $("#passwordRegister").val();
+            var email = $("#emailRegister").val();
+            var form_data = {
+                userName: username,
+                password: password,
+                email: email
+            };
+            $.ajax({
+                type: "POST",
+                url: base_url + "auth/SignUp",
+                data: form_data,
+                success: function (response) {
+                    console.log(response);
+                    if (response.resultCode > 0)
+                    {
+                        document.cookie = 'username=' + response.userName + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                        document.cookie = 'password=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                        document.cookie = 'userId=' + response.resultCode + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
+                        console.log('hiding');
+                        $('#myModalO').modal('hide');
+                        // show in UI that we're logged in
+                        showLoggedIn(response.userName);
+                        if (wantsToSend == 1)
+                            sendMessage();
+                    }
+                    else if (response.resultCode == -2)
+                    {
+                        // show message "user already exists"
+                        alert('user already exists');
+                    }
+                    //var json = response;
+                    //var output = "<ul>";
+                    //for (var i in json) {
+                    //    output += "<li>" + json.userName + ",  " + json.password + "</li>";
+                    //}
+                    //      output += "</ul>";
+                    //    $('span').html(output);
+                },
+                dataType: "json"//set to JSON
+            })
+        }
 
-    function showLoggedIn() {
+        function showLoggedIn() {
 
-        $("#loginMenu").show();
-        $("#signIn").hide();
-    }
-  
+            $("#loginMenu").show();
+            $("#signIn").hide();
+        }
     </script>
     
-     <!-- Top Bar Start -->
+  <!-- Top Bar Start -->
   <div class="topbar">
     <!-- Button mobile view to collapse sidebar menu -->
     <div class="navbar navbar-default" role="navigation">
@@ -355,24 +356,21 @@ function setLoginMenu()
               <a href="conversations.html"><i class="fa fa-comments"></i> <strong>Conversations</strong></a>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right top-navbar">
+          <ul class="nav navbar-nav navbar-right top-navbar navbar-collapse">
 
-              <li id="loginMenu" class="dropdown topbar-profile">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>Login</strong></a>
-              <ul class="dropdown-menu">
+            <li id="loginMenu"><a href="#"><i class="fa fa-user"></i><strong>Login</strong></a></li>
+
             <li id="userMenu" class="dropdown topbar-profile">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><strong>name</strong></a>
-
-            // <li class="dropdown topbar-profile">
-            //   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> User <strong>Mode</strong></a>
-
-              <ul class="dropdown-menu">
-                <li><a href="index.html"><i class="icon-logout-1"></i> Log out</a></li>
-              </ul>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i><strong>name</strong></a>
+                <ul class="dropdown-menu">
+                    <li><a href="index.html"><i class="icon-logout-1"></i> Log out</a></li>
+                </ul>
             </li>
-            <li class="dropdown topbar-profile">
-              <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+
+            <li>
+                <div id="facebookLogin" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
             </li>
+
           </ul>
         </div>
         <!--/.nav-collapse -->
