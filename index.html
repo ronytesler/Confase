@@ -97,6 +97,7 @@
             });
             console.log('calling get status');
             FB.getLoginStatus(function (response) {
+                console.log("response")
                 statusChangeCallback(response);
             });
         };
@@ -213,7 +214,6 @@
             });
 
           $('#send-message').attr('disabled', true);
-          console.log($('#send-message'));
           $('body').on('keyup', '#maan, #message', function(event) {
             if($('#maan').val() === "" || $('#message').val() === "") {
               $('#send-message').attr('disabled', true);
@@ -230,7 +230,6 @@
         var response = "";
         var username = $("#username").val();
         var password = $("#password").val();
-        console.log(username + password);
         var form_data = {
             userName: username,
             password: password
@@ -273,8 +272,7 @@
                 //$('span').html(output);
             },
             dataType: "json"//set to JSON
-        })
-       
+        })  
     }
 
     function register() {
@@ -320,12 +318,9 @@
             },
             dataType: "json"//set to JSON
         })
-
-
     }
 
-    function showLoggedIn()
-    {
+    function showLoggedIn() {
         $("#loginMenu").show();
         $("#signIn").hide();
     }
