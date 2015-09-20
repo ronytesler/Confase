@@ -1,7 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
-.fb-login-button {
-  margin-right:10px;
-  background-color:blue;
+.facebook-login {
+  margin-top:4px;
 }
 .bg-white-1 {
   background-color: #ffffff !important;

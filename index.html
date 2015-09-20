@@ -199,8 +199,9 @@
       //var base_url = 'http://rhc.azurewebsites.net/';
       var base_url = 'http://b70d7f77.ngrok.io/api/';
 
+        //For testing
         function toggleLogin() {
-            $('facebookLogin').toggle();
+            $('#facebookLogin').toggle();
             $("#loginMenu").toggle();
             $("#userMenu").toggle();
         }
@@ -211,13 +212,13 @@
                 console.log(username)
                 if (username == null || username == '') {
                     console.log('not logged in');
-                        $('facebookLogin').hide();
-                        $("#loginMenu").show();
-                        $("#userMenu").hide();
+                    $('#facebookLogin').show();
+                    $("#loginMenu").show();
+                    $("#userMenu").hide();
                     return;
                 }
                 console.log('logged in');
-                $('facebookLogin').hide();
+                $('#facebookLogin').hide();
                 $("#loginMenu").hide();
                 $("#userMenu").show();
         }
@@ -225,14 +226,6 @@
         $(document).ready(function () {
             //    $('.dropdown-toggle').dropdown()
             setLoginMenu();
-            $("#logOutBtn").click(function () {
-                $("#loginMenu").hide();
-                $("#signIn").show();
-            });
-            $("#logInBtn").click(function () {
-                $("#loginMenu").show();
-                $("#signIn").hide();
-            });
 
           $('#send-message').attr('disabled', true);
           $('body').on('keyup', '#maan, #message', function(event) {
@@ -337,12 +330,6 @@
                 dataType: "json"//set to JSON
             })
         }
-
-        function showLoggedIn() {
-
-            $("#loginMenu").show();
-            $("#signIn").hide();
-        }
     </script>
     
   <!-- Top Bar Start -->
@@ -358,18 +345,20 @@
           </ul>
           <ul class="nav navbar-nav navbar-right top-navbar navbar-collapse">
 
-            <li id="loginMenu"><a href="#"><i class="fa fa-user"></i><strong>Login</strong></a></li>
+            <li class="facebook-login">
+                <div id="facebookLogin" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+            </li>
+
+            <li id="loginMenu"><a href="#"><i class="fa fa-user"></i><strong> Login</strong></a></li>
 
             <li id="userMenu" class="dropdown topbar-profile">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i><strong>name</strong></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i><strong> Settings</strong></a>
                 <ul class="dropdown-menu">
-                    <li><a href="index.html"><i class="icon-logout-1"></i> Log out</a></li>
+                    <li><a href="index.html"><i class="icon-logout-1"></i> Logout</a></li>
                 </ul>
             </li>
 
-            <li>
-                <div id="facebookLogin" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
-            </li>
+
 
           </ul>
         </div>
