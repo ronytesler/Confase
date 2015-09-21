@@ -333,14 +333,21 @@
   <div class="topbar">
     <!-- Button mobile view to collapse sidebar menu -->
     <div class="navbar navbar-default" role="navigation">
-      <div class="container">
-        <div class="navbar-collapse2">
+        <div class="navbar-header">
           <ul class="nav navbar-nav navbar-left top-navbar">
             <li class="dropdown topbar-profile">
               <a href="conversations.html"><i class="fa fa-comments"></i> <strong>Conversations</strong></a>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right top-navbar navbar-collapse">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right top-navbar">
 
             <li class="facebook-login">
                 <div id="facebookLogin" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
@@ -357,12 +364,8 @@
                 </ul>
             </li>
 
-
-
           </ul>
         </div>
-        <!--/.nav-collapse -->
-      </div>
     </div>
   </div>
   <!-- Top Bar End -->

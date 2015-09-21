@@ -1,7 +1,34 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+
+/* NEW STYLES */
 .facebook-login {
   margin-top:4px;
 }
+.navbar-collapse {
+  background-color: #424a55;
+}
+.navbar-toggle {
+  margin-top:12px;
+}
+.collapse.in .navbar-nav.navbar-right {
+  margin-right:10px;
+  height:inherit;
+}
+.collapse.in li {
+  display: block;
+}
+.md-contentR {
+  margin-top: 50px;
+}
+@media (min-width:768px) {
+  .navbar-right {
+    margin-right:0px;
+  }
+}
+/* NEW STYLES END */
+
+
 .bg-white-1 {
   background-color: #ffffff !important;
 }
@@ -823,9 +850,6 @@ a:focus {
 }
 .container {
   width: auto;
-}
-.navbar {
-  margin: 0 0 0 -15px;
 }
 .navbar-collapse {
   padding: 0;
@@ -4347,7 +4371,7 @@ a:focus .icon-vimeo {
   width: 100%;
   padding: 5px 0px;
   max-width: 500px;
-  margin: 6% auto;
+  margin: 60px auto 20px;
   text-align: center;
 }
 .full-content {
