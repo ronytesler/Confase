@@ -32,6 +32,10 @@
 </head>
 <body class="fixed-left login-page">
     <script>
+        //opens modal, onclick is on login button
+        function openLogin() {
+            $('#myModalO').modal('show');
+        }
         // This is called with the results from from FB.getLoginStatus().
         function LoginToFacebook() {
             FB.login(function (response) {
@@ -66,8 +70,6 @@
                         if (response.resultCode > 0) {
                             document.cookie = 'token=' + response.password + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
                             document.cookie = 'fuid=' + response.user + '; expires=Thu, 18 Dec 2083 12:00:00 UTC';
-                            $("#loginMenu").show();
-                            $("#signIn").hide();
                             // if getConversations -> get convs from server
                         }
                         else if (response.resultCode == -1) {
@@ -149,8 +151,8 @@
             else {
                 wantsToSend = 0;
             }
-
-
+            
+            $('#message-spinner').show();
             var form_data = {
                 userName: username,
                 password: password,
@@ -170,7 +172,9 @@
                         // show message - your message was sent!
                         $("#maan").text('');
                         $("#message").text('');
+                        $('#message-spinner').hide();
                         alert("Your message was sent!");
+
                     }
                 },
                 dataType: "json"//set to JSON
@@ -199,34 +203,27 @@
       //var base_url = 'http://rhc.azurewebsites.net/';
       var base_url = 'http://b70d7f77.ngrok.io/api/';
 
-        //For testing
-        function toggleLogin() {
-            $('#facebookLogin').toggle();
-            $("#loginMenu").toggle();
-            $("#userMenu").toggle();
-        }
-
         function setLoginMenu() {
-            console.log('here');
-                var username = getCookie('username');
-                console.log(username)
-                if (username == null || username == '') {
-                    console.log('not logged in');
-                    $('#facebookLogin').show();
-                    $("#loginMenu").show();
-                    $("#userMenu").hide();
-                    return;
-                }
-                console.log('logged in');
-                $('#facebookLogin').hide();
-                $("#loginMenu").hide();
-                $("#userMenu").show();
+            var username = getCookie('username');
+            console.log(username)
+            if (username == null || username == '') {
+                console.log('not logged in');
+                $('#facebookLogin').show();
+                $("#loginMenu").show();
+                $("#userMenu").hide();
+                $("#user-name").html("username");
+                return;
+            }
+            console.log('logged in');
+            $('#facebookLogin').hide();
+            $("#loginMenu").hide();
+            $("#userMenu").show();
+            $("#user-name").html(username);
         }
 
         $(document).ready(function () {
-            //    $('.dropdown-toggle').dropdown()
-            setLoginMenu();
-
+          setLoginMenu();
+          $('#message-spinner').hide();
           $('#send-message').attr('disabled', true);
           $('body').on('keyup', '#maan, #message', function(event) {
             if($('#maan').val() === "" || $('#message').val() === "") {
@@ -349,10 +346,12 @@
                 <div id="facebookLogin" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
             </li>
 
-            <li id="loginMenu"><a href="#"><i class="fa fa-user"></i><strong> Login</strong></a></li>
+            <li id="loginMenu">
+                <a href="#" data-toggle="modal" onclick="openLogin()"><i class="fa fa-user"></i><strong> Login</strong></a>
+            </li>
 
             <li id="userMenu" class="dropdown topbar-profile">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i><strong> Settings</strong></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> <strong id="user-name">User</strong></a>
                 <ul class="dropdown-menu">
                     <li><a href="index.html"><i class="icon-logout-1"></i> Logout</a></li>
                 </ul>
@@ -382,7 +381,7 @@
             <i class="fa fa-envelope overlay"></i>
             <textarea type="text" id="message" class="form-control text-input" placeholder="Write your message here..."></textarea>
             </div>
-            <button id="send-message" class="btn btn-success btn-block" data-toggle="modal" onclick="sendMessage()">SEND MESSAGE</button>
+            <button id="send-message" class="btn btn-success btn-block" data-toggle="modal" onclick="sendMessage()">SEND MESSAGE <i class="fa fa-spinner fa-spin" id="message-spinner"></i></button>
           </form>
         </div>
       </div>

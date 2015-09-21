@@ -4375,10 +4375,10 @@ a:focus .icon-vimeo {
   text-align: left;
   background: rgba(0,0,0,0.1);
   padding: 20px 20px;
-  color: #fff;
+  color: #222;
 }
 .login-wrap a {
-  color: #fff;
+  color: #222;
 }
 .login-wrap i {
   margin-right: 5px;
